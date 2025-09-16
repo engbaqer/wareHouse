@@ -2,7 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Button } from "@/components/ui/button";
 import Image from "next/image"; // ✅ Correct import for Next.js Image component
-
+import { GlobalStateProvider } from "../hooks/globalHook";
 
 export const metadata = {
   title: "store",
@@ -15,6 +15,7 @@ export default function RootLayout({ children }) {
 
   
   return (
+    <GlobalStateProvider>
     <html lang="ar">
       
       <body className="h-screen bg-gradient-to-br from-orange-400 via-orange-100 to-orange-50">
@@ -54,5 +55,6 @@ export default function RootLayout({ children }) {
       </body>
  
     </html>
+    </GlobalStateProvider>
   );
 }

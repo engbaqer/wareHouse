@@ -7,11 +7,11 @@ const GlobalStateContext = createContext();
 export function GlobalStateProvider({ children }) {
    
     
-   
+   const [activeItem, setActiveItem] = useState(null);
     
 
     return (
-        <GlobalStateContext.Provider value={{  }}>
+        <GlobalStateContext.Provider value={{ activeItem, setActiveItem }}>
             {children}
         </GlobalStateContext.Provider>
     );
