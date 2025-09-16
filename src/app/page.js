@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { LogIn, Pointer } from "lucide-react";
-import LogInComponent from "./login/page";
+// import LogInComponent from "./login/page";
 export default function Home() {
   return (
    <>    <nav className="bg-white shadow-md py-4 px-6 fixed w-screen" dir="rtl">
@@ -35,7 +35,7 @@ export default function Home() {
           </div>
         </nav> 
 
-    <LogInComponent />  
+    {/* <LogInComponent />   */}
 </>
 
   );

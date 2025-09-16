@@ -1,5 +1,5 @@
 "use client";
-import { useGlobalState } from "./context/GlobalState";
+import { useGlobalState } from "../(blank-layout)/login/GlobalState";
 import {
   Card,
   CardHeader,

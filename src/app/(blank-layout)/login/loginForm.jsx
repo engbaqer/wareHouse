@@ -1,7 +1,7 @@
 "use client";
 
 // Using the same global state from the registration context
-import { useGlobalState } from "../registration/context/GlobalState";
+import { useGlobalState } from "./GlobalState";
 import { useRouter } from "next/navigation"; // ✅ Import router
 
 import {

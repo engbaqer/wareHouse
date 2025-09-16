@@ -1,5 +1,5 @@
 "use client"
-import { GlobalStateProvider } from "./context/GlobalState";
+import { GlobalStateProvider } from "../(blank-layout)/login/GlobalState";
 import RegistrationForm from "./registrationForm";
 
 export default function Registration() {

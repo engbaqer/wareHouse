@@ -1,7 +1,8 @@
+
 import { AppSidebar } from "@/components/app-sidebar"
 // import { ChartAreaInteractive } from "@/components/chart-area-interactive"
 // import { DataTable } from "@/components/data-table"
-// import { SectionCards } from "@/components/section-cards"
+import { SectionCards } from "@/components/section-cards"
 import { SiteHeader } from "@/components/site-header"
 import {
   SidebarInset,
@@ -12,16 +13,7 @@ import { Button } from "@/components/ui/button"
 import { Item } from "@radix-ui/react-dropdown-menu"
 // import data from "./data.json"
 
-import  Items  from "./sections/items"
-
-
-
-
-
-
-
-
-export  default function Page() {
+export default function mainLayout({ children }) {
   return (
     <SidebarProvider
       style={
@@ -30,7 +22,6 @@ export  default function Page() {
           "--header-height": "calc(var(--spacing) * 12)"
         }
       }>
-
       <AppSidebar variant="inset" />
       <SidebarInset>
         <SiteHeader />
@@ -39,25 +30,15 @@ export  default function Page() {
             <div className="flex flex-col gap-4 p-4 py-4 md:gap-6 md:py-6">
                <div className=" flex w-full max-w-sm items-center gap-2">
 {/*===================================== the sections of the dashboard ========================= */}
-
-<Items />
-
-
-
-
-
-
-
-
-
-
-
+{/* <Items /> */}
 
 {/*===================================== the sections of the dashboard ========================= */}
                 
     </div>
-              {/* <SectionCards />
+     {/* <SectionCards /> */}
+              {/*
               <ChartAreaInteractive / */}
+              <div>{children}</div>
               <div className="px-4 lg:px-6">
                 {/* <ChartAreaInteractive /> */}
               </div>
@@ -67,5 +48,13 @@ export  default function Page() {
         </div>
       </SidebarInset>
     </SidebarProvider>
+   
   );
 }
+
+
+
+
+
+
+
