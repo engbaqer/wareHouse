@@ -39,7 +39,7 @@ export default function LoginForm() {
       // Save token if returned by backend
       if (result.token) {
         localStorage.setItem("jwt", result.token);
- router.push("/dashboard");
+ router.push("/main/items"); // ✅ Navigate to /main/items after login
       }
     } catch (error) {
       console.error("Error logging in:", error);
