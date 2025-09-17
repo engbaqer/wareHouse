@@ -55,7 +55,7 @@ export default function Items() {
         </Button>
       </form>
   </div>
-<div className='w-fit  pt-8  flex flex-row '>
+<div className='w-fit  pt-8  flex flex-wrap gap-5 '>
     {items.map((item) => (
         <Card key={item.id} {...item} />
       ))}
