@@ -26,7 +26,7 @@ export default function mainLayout({ children }) {
       <SidebarInset>
         <SiteHeader />
         <div className="flex flex-1 flex-col">
-          <div className="@container/main flex flex-1 flex-col gap-2 bg-gradient-to-br from-orange-400 via-orange-100 to-orange-50">
+          <div className="@container/main flex flex-1 flex-col gap-2 bg-gradient-to-br bg-neutral-300">
             <div className="flex flex-col gap-4 p-4 py-4 md:gap-6 md:py-6">
                <div className=" flex w-full max-w-sm items-center gap-2">
 {/*===================================== the sections of the dashboard ========================= */}
@@ -39,9 +39,9 @@ export default function mainLayout({ children }) {
               {/*
               <ChartAreaInteractive / */}
               <div>{children}</div>
-              <div className="px-4 lg:px-6">
-                {/* <ChartAreaInteractive /> */}
-              </div>
+              {/* <div className="px-4 lg:px-6">
+                <ChartAreaInteractive />
+              </div> */}
               {/* <DataTable data={data} /> */}
             </div>
           </div>

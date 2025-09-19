@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
     <GlobalStateProvider>
     <html lang="ar">
       
-      <body className="h-screen bg-gradient-to-br from-orange-400 via-orange-100 to-orange-50">
+      <body className="h-screen bg-gradient-to-br bg-neutral-300">
         {/* <nav className="bg-white shadow-md py-4 px-6 fixed w-screen" dir="rtl">
           <div className="container mx-auto flex flex-row justify-between items-center">
             <div className="flex justify-center items-center flex-row">

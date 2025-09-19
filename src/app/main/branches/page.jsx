@@ -33,7 +33,8 @@ export default function Branches() {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="flex flex-wrap justify-center items-center h sm:mt-[10%] gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
       {warehouses.map((warehouse) => {
         const status = warehouse.isActive ? "active" : "inactive";
         const normalized = status?.toLowerCase();
@@ -66,11 +67,11 @@ export default function Branches() {
               <div>
                 <Badge
                   className={cn(
-                    "px-3 py-1 rounded-full text-sm font-medium",
+                    "px-3 py-1  text-sm font-medium",
                     normalized === "active" &&
-                      "bg-green-600 text-white hover:bg-green-700",
+                      "bg-green-600 text-white",
                     normalized === "inactive" &&
-                      "bg-red-600 text-white hover:bg-red-700"
+                      "bg-red-600 text-white "
                   )}
                 >
                   {status}
@@ -80,6 +81,7 @@ export default function Branches() {
           </Card>
         );
       })}
+    </div>
     </div>
   );
 }

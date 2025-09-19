@@ -16,7 +16,7 @@ export default function CardDemo({ id, name, details, setShowItemInfo, setSelect
          <Image src={"/9284767.png"} alt="Logo" width={60} height={60} priority  /> 
          </CardHeader>
           <CardFooter className="flex-col gap-2"> 
-            <CardTitle className="w-20 sm:w-40">{name} </CardTitle>
+            <CardTitle className=" w-20  sm:w-40 ">{name} </CardTitle>
              {/* <CardDescription>{details.description}</CardDescription>  */}
              <div></div>
              </CardFooter> 

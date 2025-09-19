@@ -13,15 +13,22 @@ import {
 import { Button } from "@/components/ui/button";
 import { apiRequest } from "@/lib/request"; // adjust path if needed
 
-export default function SectionCards({ setShowItemInfo, setSelectedItem, showItemInfo, selectedItem}) {
+export default function SectionCards({
+  setShowItemInfo,
+  setSelectedItem,
+  showItemInfo,
+  selectedItem,
+  addItem,
+  setAddItem,
+  setTempOfData,
+}) {
   const [item, setItem] = useState(null);
-console.log("im hear", selectedItem)
-console.log("im hear", showItemInfo)
-//   Fetch the item when component loads
+
+  // 🔹 Fetch the item
   useEffect(() => {
     const fetchItem = async () => {
       try {
-        const token = localStorage.getItem("jwt"); // if you’re using JWT
+        const token = localStorage.getItem("jwt");
         const data = await apiRequest(`api/Items/${selectedItem}`, {
           method: "GET",
           token,
@@ -33,17 +40,42 @@ console.log("im hear", showItemInfo)
     };
 
     fetchItem();
-  }, []);
+  }, [selectedItem]); // 👈 better: refetch if id changes
 
   if (!item) {
     return <p className="text-gray-500">Loading...</p>;
   }
 
+  function Update() {
+    setShowItemInfo(false);
+    setAddItem(true);
+    setTempOfData(item);
+  }
+
+  // 🔹 Delete handler
+  async function handleDelete() {
+    if (!confirm("Are you sure you want to delete this item?")) return;
+
+    try {
+      const token = localStorage.getItem("jwt");
+      await apiRequest(`api/Items/${selectedItem}`, {
+        method: "DELETE",
+        token,
+      });
+
+      alert("Item deleted successfully!");
+      setShowItemInfo(false); // close the details
+      setSelectedItem(null);  // clear the selection
+    } catch (err) {
+      console.error("❌ Failed to delete item:", err);
+      alert("Failed to delete item");
+    }
+  }
+
   return (
-    <div className="  grid grid-cols-1 gap-4">
-      <Card
-        className=" w-70 h-90  hover:shadow-lg transition p-10">
-        <CardHeader className=" flex justify-center items-center ">
+    <div className="grid grid-cols-1 gap-4">
+      <Card className="w-70 h-90 hover:shadow-lg transition p-10">
+        <CardHeader className="flex justify-center items-center">
           <Image
             src={"/9284767.png"}
             alt="Logo"
@@ -53,12 +85,37 @@ console.log("im hear", showItemInfo)
           />
         </CardHeader>
         <CardFooter className="flex-col gap-2 w-full">
-          <CardTitle className=" text-center">name:{item.name}</CardTitle>
-          <CardDescription>Description:ffffffffff{item.details.description} </CardDescription>
-           <CardDescription>Price:300{item.details.description} </CardDescription>
-           <Button variant="" className='w-60 cursor-pointer' >Update</Button>
-           <Button variant="destructive" className='w-60 cursor-pointer'>Delete</Button>
-           <Button onClick={() => { setShowItemInfo(false)}} variant="secondary" className='w-60 cursor-pointer'>Cancel</Button>
+          <CardTitle className="text-center">Name: {item.name}</CardTitle>
+          <CardDescription>
+            Description: {item.details?.description}
+          </CardDescription>
+          <CardDescription>
+            Price: {item.details?.unitPrice}
+          </CardDescription>
+
+          <Button
+            variant=""
+            className="w-60 cursor-pointer"
+            onClick={Update}
+          >
+            Update
+          </Button>
+
+          <Button
+            variant="destructive"
+            className="w-60 cursor-pointer"
+            onClick={handleDelete}
+          >
+            Delete
+          </Button>
+
+          <Button
+            onClick={() => setShowItemInfo(false)}
+            variant="secondary"
+            className="w-60 cursor-pointer"
+          >
+            Cancel
+          </Button>
         </CardFooter>
       </Card>
     </div>
