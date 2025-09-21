@@ -8,11 +8,11 @@ export function GlobalStateProvider({ children }) {
     const [username, setUsername] = useState(""); // default Arabic value
     const [email, setEmail] = useState(""); // default Arabic value
     const [password, setPassword] = useState(""); // default Arabic value
-   
+   const [role, setRole] = useState(""); // default Arabic value
     
 
     return (
-        <GlobalStateContext.Provider value={{ username, setUsername, email, setEmail, password, setPassword}}>
+        <GlobalStateContext.Provider value={{ username, setUsername, email, setEmail, password, setPassword , role, setRole }}>
             {children}
         </GlobalStateContext.Provider>
     );

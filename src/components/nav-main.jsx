@@ -22,8 +22,8 @@ const { activeItem, setActiveItem } = useGlobalState();
      
         <SidebarMenu>
           {items.map((item) => (
-            <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton tooltip={item.title} onClick={() => { setActiveItem(item.title); router.push(`/main/${item.title}`); }} className={`flex items-center gap-2 px-3 py-2 rounded-md cursor-pointer 
+            <SidebarMenuItem key={item.title} className="p-1">
+              <SidebarMenuButton tooltip={item.title} onClick={() => { setActiveItem(item.title); router.push(`/main/${item.title}`); }} className={`flex items-center gap-2 px-3 py-2  rounded-md cursor-pointer 
                             ${activeItem === item.title ? "bg-[#504B58] text-white" : "hover:bg-gray-200"}`}>
                 {item.icon && <item.icon />}
                 <span>{item.title}</span>

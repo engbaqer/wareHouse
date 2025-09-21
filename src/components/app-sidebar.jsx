@@ -55,13 +55,13 @@ const data = {
       url: "#",
       icon: IconChartBar,
     },
+    // {
+    //   title: "Projects",
+    //   url: "#",
+    //   icon: IconFolder,
+    // },
     {
-      title: "Projects",
-      url: "#",
-      icon: IconFolder,
-    },
-    {
-      title: "Team",
+      title: "Registration",
       url: "#",
       icon: IconUsers,
     },
