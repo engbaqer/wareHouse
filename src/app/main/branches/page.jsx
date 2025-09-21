@@ -8,6 +8,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { apiRequest } from "@/lib/request"; // your helper
@@ -33,13 +35,16 @@ export default function Branches() {
   }, []);
 
   return (
+    <><Button className=  ' ml-5 mb-5  sm:ml-10  bg-green-400' >Add new branch</Button>
     <div className="flex flex-wrap justify-center items-center h sm:mt-[10%] gap-4">
+      
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
       {warehouses.map((warehouse) => {
         const status = warehouse.isActive ? "active" : "inactive";
         const normalized = status?.toLowerCase();
 
         return (
+          
           <Card
             key={warehouse.id}
             className="w-90 sm:h-75 hover:shadow-lg transition cursor-pointer"
@@ -83,5 +88,6 @@ export default function Branches() {
       })}
     </div>
     </div>
+    </>
   );
 }
