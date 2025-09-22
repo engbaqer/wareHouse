@@ -53,9 +53,9 @@ console.log("im hear", showItemInfo)
           />
         </CardHeader>
         <CardFooter className="flex-col gap-2 w-full">
-          <CardTitle className=" text-center">name:{item.name}</CardTitle>
-          <CardDescription>Description:ffffffffff{item.details.description} </CardDescription>
-           <CardDescription>Price:300{item.details.description} </CardDescription>
+          <CardTitle className=" text-center">Name:  {item.name}</CardTitle>
+          <CardDescription>Description: {item.details.description} </CardDescription>
+           <CardDescription>Price: {item.details.unitPrice} </CardDescription>
            <Button variant="" className='w-60 cursor-pointer' >Stock in</Button>
            <Button variant="destructive" className='w-60 cursor-pointer'>Stock out</Button>
            <Button onClick={() => { setShowItemInfo(false)}} variant="secondary" className='w-60 cursor-pointer'>Cancel</Button>

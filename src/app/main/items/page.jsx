@@ -42,8 +42,8 @@ export default function Items() {
   }, []);
 
   return (
-    <div className='w-full    flex flex-col relative  justify-center items-center  '>
-      <div className='w-full sm:px-15 flex   '>
+    <div className='w-full    flex flex-col relative  justify-center items-center   '>
+      <div className='w-full  flex sm:px-[7%]   '>
         <form
           className="flex  items-center gap-2 sm:w-[50%] "
           onSubmit={(e) => {
@@ -64,7 +64,7 @@ export default function Items() {
         </form>
         
       </div>
-      <div className='w-fit  pt-8  flex flex-wrap gap-5  '>
+      <div className='w-fit  pt-8  flex flex-wrap gap-5 sm:px-[5%]  '>
         {items.map((item) => (
           <Card key={item.id} {...item} setShowItemInfo={setShowItemInfo} 
           setSelectedItem={setSelectedItem}  />

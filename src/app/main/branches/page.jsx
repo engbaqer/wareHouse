@@ -9,14 +9,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-
+import { useRouter } from "next/navigation"; 
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { apiRequest } from "@/lib/request"; // your helper
 
 export default function Branches() {
   const [warehouses, setWarehouses] = useState([]);
-
+const router = useRouter();
   useEffect(() => {
     const fetchWarehouses = async () => {
       try {
@@ -26,6 +26,7 @@ export default function Branches() {
           token, // ⬅️ pass it to apiRequest
         });
         setWarehouses(data);
+        console.log(data);
       } catch (error) {
         console.error("Error fetching warehouses:", error);
       }
@@ -44,8 +45,8 @@ export default function Branches() {
         const normalized = status?.toLowerCase();
 
         return (
-          
-          <Card
+
+          <Card onClick={() => { localStorage.setItem("warehouseId", warehouse.id);  router.push(`/main/items`)}}
             key={warehouse.id}
             className="w-90 sm:h-75 hover:shadow-lg transition cursor-pointer"
           >

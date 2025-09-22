@@ -21,7 +21,6 @@ export default function CardDemo({ id, name, details, setShowItemInfo, setSelect
              <div></div>
              </CardFooter> 
              </Card>
-
              </div>
   )
 }

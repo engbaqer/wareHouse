@@ -5,22 +5,23 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { apiRequest } from "@/lib/request";
 import { useState, useEffect } from "react";
-import { id } from 'zod/v4/locales';
-
+// import { id } from 'zod/v4/locales';
+import StockInForm from './stokInForm';
 export default function Items() {
-  const [id, setId] = useState(""); 
+  // const [id, setId] = useState(""); 
   const [query, setQuery] = useState("");
   const [items, setItems] = useState([]);
   const [showItemInfo, setShowItemInfo] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [showTheForm, setShowTheForm] = useState(true);
 
   console.log(showItemInfo)
   console.log(selectedItem)
-  const getItems = async (search = "") => {
+  const getItems = async (query = "") => {
     const token = localStorage.getItem("jwt");
     try {
       const result = await apiRequest(
-        `api/Items?page=1&pageSize=20&warehouseId=${id}&search=${search}`,
+        `api/Items?q=${query}&page=1&pageSize=20`,
         {
           method: "GET",
           headers: {
@@ -42,10 +43,10 @@ export default function Items() {
   }, []);
 
   return (
-    <div className='w-full   flex flex-col relative   '>
-      <div className='     '>
+    <div className='w-full    flex flex-col relative  justify-center items-center   '>
+      <div className='w-full  flex sm:px-[7%]   '>
         <form
-          className="flex  items-center gap-2 "
+          className="flex  items-center gap-2 sm:w-[50%]   "
           onSubmit={(e) => {
             e.preventDefault();
             getItems(query); // fetch items by search query
@@ -57,12 +58,12 @@ export default function Items() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <Button type="submit" variant="outline">
+          <Button onClick={() => getItems(query)} type="submit" variant="outline">
             Search
           </Button>
         </form>
       </div>
-      <div className='w-fit  pt-8  flex flex-wrap gap-5  '>
+      <div className='w-fit  pt-8  flex flex-wrap gap-5 sm:px-[7%]    '>
         {items.map((item) => (
           <Card key={item.id} {...item} setShowItemInfo={setShowItemInfo} 
           setSelectedItem={setSelectedItem}  />
@@ -80,6 +81,15 @@ export default function Items() {
         </div>
       )}
 
+  {showTheForm && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+          <StockInForm
+            setShowForm={setShowTheForm}
+          
+            className="relative bg-white rounded-xl shadow-xl p-6"
+          />
+        </div>
+      )}
     </ div>
 
   );
