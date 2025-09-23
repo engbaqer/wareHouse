@@ -13,7 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { apiRequest } from "@/lib/request"; // adjust path if needed
 
-export default function SectionCards({ setShowItemInfo, setSelectedItem, showItemInfo, selectedItem}) {
+export default function SectionCards({ setShowItemInfo, setSelectedItem, showItemInfo, selectedItem , setShowTheForm }) {
   const [item, setItem] = useState(null);
 console.log("im hear", selectedItem)
 console.log("im hear", showItemInfo)
@@ -56,8 +56,8 @@ console.log("im hear", showItemInfo)
           <CardTitle className=" text-center">Name:  {item.name}</CardTitle>
           <CardDescription>Description: {item.details.description} </CardDescription>
            <CardDescription>Price: {item.details.unitPrice} </CardDescription>
-           <Button variant="" className='w-60 cursor-pointer' >Stock in</Button>
-           <Button variant="destructive" className='w-60 cursor-pointer'>Stock out</Button>
+           <Button variant="" className='w-60 cursor-pointer' onClick={() => setShowTheForm("in")}>Stock in</Button>
+           <Button variant="destructive" className='w-60 cursor-pointer' onClick={() => setShowTheForm("out")}>Stock out</Button>
            <Button onClick={() => { setShowItemInfo(false)}} variant="secondary" className='w-60 cursor-pointer'>Cancel</Button>
         </CardFooter>
       </Card>

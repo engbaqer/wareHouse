@@ -13,7 +13,8 @@ export default function Items() {
   const [items, setItems] = useState([]);
   const [showItemInfo, setShowItemInfo] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [showTheForm, setShowTheForm] = useState(true);
+  const [showTheForm, setShowTheForm] = useState("");
+
 
   console.log(showItemInfo)
   console.log(selectedItem)
@@ -75,17 +76,19 @@ export default function Items() {
             setShowItemInfo={setShowItemInfo}
             setSelectedItem={setSelectedItem}
             showItemInfo={showItemInfo}
-           selectedItem={selectedItem}
+            selectedItem={selectedItem}
+            setShowTheForm={setShowTheForm}
             className="relative bg-white rounded-xl shadow-xl p-6"
           />
         </div>
       )}
 
-  {showTheForm && (
+  {showTheForm !== "" && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
           <StockInForm
             setShowForm={setShowTheForm}
-          
+            showTheForm={showTheForm}
+            selectedItem={selectedItem}
             className="relative bg-white rounded-xl shadow-xl p-6"
           />
         </div>

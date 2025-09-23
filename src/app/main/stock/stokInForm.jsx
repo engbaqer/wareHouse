@@ -11,16 +11,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { apiRequest } from "@/lib/request"; // same helper
-export default function StockInForm({ setShowForm }) {
+export default function StockInForm({ setShowForm , showTheForm , selectedItem }) {
+  
+  const warehouseId = localStorage.getItem("warehouseId");
   const [formData, setFormData] = useState({
-    itemId: "",
-    warehouseId: "",
+    itemId: selectedItem,
+    warehouseId: warehouseId,
     quantity: "",
     unitPrice: "",
     referenceNo: "",
     note: "",
   });
-
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData((prev) => ({
@@ -36,13 +37,13 @@ export default function StockInForm({ setShowForm }) {
     try {
       const token = localStorage.getItem("jwt");
 
-      await apiRequest("api/Stock/in", {
+      await apiRequest(`api/Stock/${showTheForm}`, {
         method: "POST",
         body: formData,
         token,
       });
 
-      alert("Stock In saved successfully!");
+      alert(`Stock ${showTheForm} saved successfully!`);
       setFormData({
         itemId: "",
         warehouseId: "",
@@ -53,20 +54,19 @@ export default function StockInForm({ setShowForm }) {
       });
       if (typeof setShowForm === "function") setShowForm(false);
     } catch (error) {
-      console.error("❌ Error saving stock in:", error);
-      alert("Failed to save stock in");
+      console.error(`❌ Error saving stock : ${showTheForm}`, error);
+      alert(`Failed to save stock ${showTheForm}`);
     }
   };
 
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
-        <CardTitle>Add Stock In</CardTitle>
+        <CardTitle>Add Stock {showTheForm}</CardTitle>
       </CardHeader>
 
       <CardContent>
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-         
 
           <div className="grid gap-2">
             <Label htmlFor="quantity">Quantity</Label>
@@ -91,7 +91,7 @@ export default function StockInForm({ setShowForm }) {
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="referenceNo">Reference No</Label>
+            <Label htmlFor="referenceNo">Reference Number</Label>
             <Input
               id="referenceNo"
               type="text"
@@ -128,7 +128,7 @@ export default function StockInForm({ setShowForm }) {
                   referenceNo: "",
                   note: "",
                 });
-                if (typeof setShowForm === "function") setShowForm(false);
+                if (typeof setShowForm === "function") setShowForm("");
               }}
                    >
               CANCEL
