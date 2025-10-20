@@ -35,7 +35,7 @@ export default function LoginForm() {
       });
 
       console.log("Login successful:", result);
-      localStorage.setItem("headerStatus",2)
+   
       // Save token if returned by backend
       if (result.token) {
         localStorage.setItem("jwt", result.token);

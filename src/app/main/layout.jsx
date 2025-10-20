@@ -12,9 +12,10 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Item } from "@radix-ui/react-dropdown-menu"
 // import data from "./data.json"
-
+import { GlobalStateProvider } from "../(blank-layout)/login/GlobalState";
 export default function mainLayout({ children }) {
   return (
+    <GlobalStateProvider>
     <SidebarProvider
       style={
         {
@@ -48,6 +49,7 @@ export default function mainLayout({ children }) {
         </div>
       </SidebarInset>
     </SidebarProvider>
+    </GlobalStateProvider>
    
   );
 }

@@ -44,7 +44,7 @@ export default function Items() {
   }, []);
 
   return (
-    <div className='w-full    flex flex-col relative  justify-center items-center   '>
+    <div className='w-full  flex flex-col relative  justify-center items-center   '>
       <div className='w-full  flex sm:px-[7%]   '>
         <form
           className="flex  items-center gap-2 sm:w-[50%]   "

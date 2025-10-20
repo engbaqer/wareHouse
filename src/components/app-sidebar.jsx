@@ -42,18 +42,23 @@ const data = {
   navMain: [
     {
       title: "items",
-      url: "/items",
+      url: "items",
       icon: IconDashboard,
     },
     {
       title: "stock",
-      url: "/stock",
+      url: "stock",
       icon: IconListDetails,
     },
     {
       title: "branches",
-      url: "#",
+      url: "branches",
       icon: IconChartBar,
+    },
+      {
+      title: "stock in branches",
+      url: "stockInBranch",
+      icon: IconListDetails,
     },
     // {
     //   title: "Projects",
@@ -62,7 +67,7 @@ const data = {
     // },
     {
       title: "Registration",
-      url: "#",
+      url: "registration",
       icon: IconUsers,
     },
   ],

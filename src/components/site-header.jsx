@@ -1,8 +1,15 @@
+"use client"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { SidebarTrigger } from "@/components/ui/sidebar"
 import Image from "next/image"
+import  {useGlobalState}  from "../app/(blank-layout)/login/GlobalState";
+import { useState, useEffect } from "react"
+
 export function SiteHeader() {
+
+  const { branch } = useGlobalState();
+
   return (
     <header
       className="flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
@@ -15,7 +22,7 @@ export function SiteHeader() {
               >Ware
                 <span className="text-orange-400">house </span>
                 <span className="text-black"> System</span>
-              </p>
+              </p><p className="text-sm font-medium  text-gray-500">/{branch}</p>
         <div className="ml-auto flex items-center gap-2">
           
              <p
