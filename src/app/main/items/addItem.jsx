@@ -60,7 +60,7 @@ export default function CardDemo({ setAddItem, setSelectedItem, addItem, selecte
   {
     method: tempOfData ? "PUT" : "POST",
     body: payload,
-    token,
+    token : token,
   }
 );
      setFormData({ name: "", description: "", color: "", unitPrice: "" });
