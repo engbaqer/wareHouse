@@ -22,7 +22,7 @@ const router = useRouter();
   const payload = {
     username: username,
     password: password,
-    role: parseInt(role, 10), // convert role string to number
+    role: 1, // convert role string to number
   };
 
   try {
@@ -69,7 +69,7 @@ const router = useRouter();
                 required
               />
             </div>
-             <div className="grid gap-2">
+             {/* <div className="grid gap-2">
               <Label htmlFor="role">role</Label>
               <Input
                 id="role"
@@ -79,7 +79,7 @@ const router = useRouter();
                 onChange={(e) => setRole(e.target.value)}
                 required
               />
-            </div>
+            </div> */}
           </div>
           <CardFooter className="flex-col gap-2 mt-4">
             <Button type="submit" className="w-full">
