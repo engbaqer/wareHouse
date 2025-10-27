@@ -65,11 +65,11 @@ const data = {
     //   url: "#",
     //   icon: IconFolder,
     // },
-    {
-      title: "Registration",
-      url: "registration",
-      icon: IconUsers,
-    },
+    // {
+    //   title: "Registration",
+    //   url: "registration",
+    //   icon: IconUsers,
+    // },
   ],
   navClouds: [
     {
