@@ -86,7 +86,7 @@ export default function Branches() {
                   onClick={() => {
                     localStorage.setItem("warehouseId", warehouse.id);
                     setBranch(warehouse.name);
-                    router.push(`/main/items`);
+                    router.push(`/main/stockInBranch`);
                   }}
                   className="flex justify-center items-center"
                 >
