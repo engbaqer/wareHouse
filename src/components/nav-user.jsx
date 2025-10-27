@@ -28,12 +28,13 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { useState } from "react"
 
 export function NavUser({
   user
 }) {
   const { isMobile } = useSidebar()
-const userName = localStorage.getItem("userName");
+const [userName , setUsername] = useState(localStorage.getItem("userName") || "");
   return (
     <SidebarMenu>
       <SidebarMenuItem>

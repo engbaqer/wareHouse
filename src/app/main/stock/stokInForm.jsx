@@ -14,7 +14,7 @@ import { apiRequest } from "@/lib/request";
 
 export default function StockInForm({ setShowForm, showTheForm, selectedItem }) {
   const [warehouses, setWarehouses] = useState([]);
-  const warehouseId = localStorage.getItem("warehouseId") || "";
+  const [warehouseId, setWarehouseId] = useState(localStorage.getItem("warehouseId") || "") ;
 
   // Initialize form based on the mode
   const getInitialForm = () => {
