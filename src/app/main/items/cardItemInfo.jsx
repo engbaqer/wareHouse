@@ -74,7 +74,7 @@ export default function SectionCards({
 
   return (
     <div className="grid grid-cols-1 gap-4">
-      <Card className="w-70 h-90 hover:shadow-lg transition p-10">
+      <Card className="w-fit h-fit hover:shadow-lg transition p-10">
         <CardHeader className="flex justify-center items-center">
           <Image
             src={"/9284767.png"}

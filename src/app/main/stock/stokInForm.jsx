@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,28 +10,72 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { apiRequest } from "@/lib/request"; // same helper
-export default function StockInForm({ setShowForm , showTheForm , selectedItem }) {
-  
-  const warehouseId = localStorage.getItem("warehouseId");
-  const [formData, setFormData] = useState({
-    itemId: selectedItem,
-    warehouseId: warehouseId,
-    quantity: "",
-    unitPrice: "",
-    referenceNo: "",
-    note: "",
-  });
+import { apiRequest } from "@/lib/request";
+
+export default function StockInForm({ setShowForm, showTheForm, selectedItem }) {
+  const [warehouses, setWarehouses] = useState([]);
+  const warehouseId = Number(localStorage.getItem("warehouseId"));
+
+  // Initialize form based on the mode
+  const getInitialForm = () => {
+    if (showTheForm === "transfer") {
+      return {
+        itemId: selectedItem,
+        fromWarehouseId: warehouseId,
+        toWarehouseId: "",
+        quantity: "",
+        unitPrice: "",
+        referenceNo: "",
+        note: "",
+      };
+    } else {
+      return {
+        itemId: selectedItem,
+        warehouseId: warehouseId,
+        quantity: "",
+        unitPrice: "",
+        referenceNo: "",
+        note: "",
+      };
+    }
+  };
+
+  const [formData, setFormData] = useState(getInitialForm());
+
+  // Reset form when showTheForm changes
+  useEffect(() => {
+    setFormData(getInitialForm());
+  }, [showTheForm]);
+
+  // Load warehouse list
+  useEffect(() => {
+    const fetchWarehouses = async () => {
+      try {
+        const token = localStorage.getItem("jwt");
+        const data = await apiRequest("api/Warehouses", {
+          method: "GET",
+          token,
+        });
+        setWarehouses(data);
+      } catch (error) {
+        console.error("❌ Failed to load warehouses:", error);
+      }
+    };
+    fetchWarehouses();
+  }, []);
+
+  // Handle input changes
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [id]: ["itemId", "warehouseId", "quantity", "unitPrice"].includes(id)
-        ? Number(value) // convert numbers
+      [id]: ["quantity", "unitPrice", "itemId", "warehouseId", "fromWarehouseId", "toWarehouseId"].includes(id)
+        ? Number(value)
         : value,
     }));
   };
 
+  // Submit handler
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -44,17 +88,10 @@ export default function StockInForm({ setShowForm , showTheForm , selectedItem }
       });
 
       alert(`Stock ${showTheForm} saved successfully!`);
-      setFormData({
-        itemId: "",
-        warehouseId: "",
-        quantity: "",
-        unitPrice: "",
-        referenceNo: "",
-        note: "",
-      });
-      if (typeof setShowForm === "function") setShowForm(false);
+      setFormData(getInitialForm());
+      if (typeof setShowForm === "function") setShowForm("");
     } catch (error) {
-      console.error(`❌ Error saving stock : ${showTheForm}`, error);
+      console.error(`❌ Error saving stock ${showTheForm}:`, error);
       alert(`Failed to save stock ${showTheForm}`);
     }
   };
@@ -62,12 +99,12 @@ export default function StockInForm({ setShowForm , showTheForm , selectedItem }
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
-        <CardTitle>Add Stock {showTheForm}</CardTitle>
+        <CardTitle className="capitalize">Stock {showTheForm}</CardTitle>
       </CardHeader>
 
       <CardContent>
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-
+          {/* Quantity */}
           <div className="grid gap-2">
             <Label htmlFor="quantity">Quantity</Label>
             <Input
@@ -79,6 +116,7 @@ export default function StockInForm({ setShowForm , showTheForm , selectedItem }
             />
           </div>
 
+          {/* Unit Price */}
           <div className="grid gap-2">
             <Label htmlFor="unitPrice">Unit Price</Label>
             <Input
@@ -90,6 +128,7 @@ export default function StockInForm({ setShowForm , showTheForm , selectedItem }
             />
           </div>
 
+          {/* Reference Number */}
           <div className="grid gap-2">
             <Label htmlFor="referenceNo">Reference Number</Label>
             <Input
@@ -101,6 +140,32 @@ export default function StockInForm({ setShowForm , showTheForm , selectedItem }
             />
           </div>
 
+          {/* Conditional warehouse fields */}
+          {showTheForm === "transfer" ? (
+            <>
+              <div className="grid gap-2">
+                <Label htmlFor="toWarehouseId">Transfer To</Label>
+                <select
+                  id="toWarehouseId"
+                  className="border p-2 rounded"
+                  value={formData.toWarehouseId}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="">Select destination branch...</option>
+                  { warehouses
+                    .filter((wh) => wh.id !== warehouseId)
+                    .map((wh) => (
+                      <option key={wh.id} value={wh.id}>
+                        {wh.name}
+                      </option>
+                    ))}
+                </select>
+              </div>
+            </>
+          ) : null}
+
+          {/* Note */}
           <div className="grid gap-2">
             <Label htmlFor="note">Note</Label>
             <Input
@@ -111,6 +176,7 @@ export default function StockInForm({ setShowForm , showTheForm , selectedItem }
             />
           </div>
 
+          {/* Buttons */}
           <CardFooter className="flex-col gap-2 px-0">
             <Button type="submit" className="w-full">
               SAVE
@@ -120,17 +186,10 @@ export default function StockInForm({ setShowForm , showTheForm , selectedItem }
               variant="outline"
               className="w-full"
               onClick={() => {
-                setFormData({
-                  itemId: "",
-                  warehouseId: "",
-                  quantity: "",
-                  unitPrice: "",
-                  referenceNo: "",
-                  note: "",
-                });
+                setFormData(getInitialForm());
                 if (typeof setShowForm === "function") setShowForm("");
               }}
-                   >
+            >
               CANCEL
             </Button>
           </CardFooter>

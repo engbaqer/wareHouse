@@ -40,6 +40,7 @@ export default function LoginForm() {
       if (result.token) {
         localStorage.setItem("jwt", result.token);
  router.push("/main/items"); // ✅ Navigate to /main/items after login
+ localStorage.setItem("userName", result.username);
       }
     } catch (error) {
       console.error("Error logging in:", error);

@@ -40,9 +40,9 @@ console.log("im hear", showItemInfo)
   }
 
   return (
-    <div className="  grid grid-cols-1 gap-4">
+    <div className=" w-f grid grid-cols-1 gap-4">
       <Card
-        className=" w-70 h-90  hover:shadow-lg transition p-10">
+        className=" w-fit h-fit  hover:shadow-lg transition p-10">
         <CardHeader className=" flex justify-center items-center ">
           <Image
             src={"/9284767.png"}
@@ -52,12 +52,29 @@ console.log("im hear", showItemInfo)
             priority
           />
         </CardHeader>
-        <CardFooter className="flex-col gap-2 w-full">
-          <CardTitle className=" text-center">Name:  {item.name}</CardTitle>
+        <CardFooter className="flex-col  gap-2 w-full">
+          <CardTitle className=" ">Name:  {item.name}</CardTitle>
           <CardDescription>Description: {item.details.description} </CardDescription>
            <CardDescription>Price: {item.details.unitPrice} </CardDescription>
-           <Button variant="" className='w-60 cursor-pointer' onClick={() => setShowTheForm("in")}>Stock in</Button>
+           <CardDescription> <div className="mt-3 w-full">
+            <h3 className="font-bold mb-2">Stock by Warehouse:</h3>
+            {item.warehouses && item.warehouses.length > 0 ? (
+              item.warehouses.map((wh, index) => (
+                <div
+                  key={index}
+                  className="flex justify-between border-b py-1 text-sm text-gray-700"
+                >
+                  <span>{wh.warehouseName}</span>
+                  <span className="font-semibold">{wh.quantityOnHand}</span>
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-500 text-sm">No warehouse data</p>
+            )}
+          </div></CardDescription>
+           <Button variant="success" className='w-60 cursor-pointer bg-green-500 text-white' onClick={() => setShowTheForm("in")}>Stock in</Button>
            <Button variant="destructive" className='w-60 cursor-pointer' onClick={() => setShowTheForm("out")}>Stock out</Button>
+            <Button variant="" className='w-60 cursor-pointer' onClick={() => setShowTheForm("transfer")}>Transfer</Button>
            <Button onClick={() => { setShowItemInfo(false)}} variant="secondary" className='w-60 cursor-pointer'>Cancel</Button>
         </CardFooter>
       </Card>
