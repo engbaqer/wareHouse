@@ -23,12 +23,12 @@ export default function SectionCards({
   setTempOfData,
 }) {
   const [item, setItem] = useState(null);
-
+ const token = localStorage.getItem("jwt");
   // 🔹 Fetch the item
   useEffect(() => {
     const fetchItem = async () => {
       try {
-        const token = localStorage.getItem("jwt");
+       
         const data = await apiRequest(`api/Items/${selectedItem}`, {
           method: "GET",
           token,
@@ -54,23 +54,23 @@ export default function SectionCards({
 
   // 🔹 Delete handler
   async function handleDelete() {
-    if (!confirm("Are you sure you want to delete this item?")) return;
+  if (!confirm("Are you sure you want to delete this item?")) return;
 
-    try {
-      const token = localStorage.getItem("jwt");
-      await apiRequest(`api/Items/${selectedItem}`, {
-        method: "DELETE",
-        token,
-      });
+  try {
+    const token = localStorage.getItem("jwt");
+    await apiRequest(`api/Items/${selectedItem}`, {
+      method: "DELETE",
+      token: token, // ✅ correctly passed
+    });
 
-      alert("Item deleted successfully!");
-      setShowItemInfo(false); // close the details
-      setSelectedItem(null);  // clear the selection
-    } catch (err) {
-      console.error("❌ Failed to delete item:", err);
-      alert("Failed to delete item");
-    }
+    alert("Item deleted successfully!");
+    setShowItemInfo(false); // close the modal
+    setSelectedItem(null);  // clear selection
+  } catch (err) {
+    console.error("❌ Failed to delete item:", err);
+    alert("this item was used in stock, you can't delete it.");
   }
+}
 
   return (
     <div className="grid grid-cols-1 gap-4">
