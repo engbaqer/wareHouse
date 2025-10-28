@@ -37,7 +37,7 @@ export async function apiRequest(
     console.log(`[apiRequest] ✅ Success:`, data);
     return data;
   } catch (error) {
-    // console.error(`[apiRequest] 🚨 Fetch error:`, error.message);
-    // throw error;
+    console.error(`[apiRequest] 🚨 Fetch error:`, error.message);
+    throw error;
   }
 }
