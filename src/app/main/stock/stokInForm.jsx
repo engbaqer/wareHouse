@@ -14,7 +14,7 @@ import { apiRequest } from "@/lib/request";
 
 export default function StockInForm({ setShowForm, showTheForm, selectedItem  , warehouseHaveThisItem }) {
   const [warehouses, setWarehouses] = useState([]);
-  
+  const warehousesId = localStorage.getItem("warehouseId");
 console.log("warehouses that have this item" , warehouseHaveThisItem)
   // Initialize form based on the mode
   const getInitialForm = () => {
@@ -31,10 +31,10 @@ console.log("warehouses that have this item" , warehouseHaveThisItem)
     } else {
       return {
         itemId: selectedItem,
-        warehouseId:"" ,
+        warehouseId: warehousesId,
         quantity: "",
-        unitPrice: "0",
-        referenceNo: "0",
+        unitPrice: "",
+        referenceNo: "",
         note: "",
       };
     }
@@ -118,7 +118,9 @@ console.log("warehouses that have this item" , warehouseHaveThisItem)
           </div>
 
           {/* Unit Price */}
-          {/* <div className="grid gap-2">
+           {showTheForm !== "transfer" ? (
+            <>
+          <div className="grid gap-2">
             <Label htmlFor="unitPrice">Unit Price</Label>
             <Input
               id="unitPrice"
@@ -127,10 +129,13 @@ console.log("warehouses that have this item" , warehouseHaveThisItem)
               onChange={handleChange}
               required
             />
-          </div> */}
-
+          </div>
+</>
+ ) : null}
           {/* Reference Number */}
-          {/* <div className="grid gap-2">
+             {showTheForm !== "transfer" ? (
+            <>
+          <div className="grid gap-2">
             <Label htmlFor="referenceNo">Reference Number</Label>
             <Input
               id="referenceNo"
@@ -139,8 +144,9 @@ console.log("warehouses that have this item" , warehouseHaveThisItem)
               onChange={handleChange}
               required
             />
-          </div> */}
-
+          </div>
+   </>
+          ) : null}
           {/* Conditional warehouse fields */}
           {showTheForm === "transfer" ? (
             <>
