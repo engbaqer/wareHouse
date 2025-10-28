@@ -12,29 +12,29 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { apiRequest } from "@/lib/request";
 
-export default function StockInForm({ setShowForm, showTheForm, selectedItem }) {
+export default function StockInForm({ setShowForm, showTheForm, selectedItem  , warehouseHaveThisItem }) {
   const [warehouses, setWarehouses] = useState([]);
-  const [warehouseId, setWarehouseId] = useState(localStorage.getItem("warehouseId") || "") ;
-
+  
+console.log("warehouses that have this item" , warehouseHaveThisItem)
   // Initialize form based on the mode
   const getInitialForm = () => {
     if (showTheForm === "transfer") {
       return {
         itemId: selectedItem,
-        fromWarehouseId: warehouseId,
+        fromWarehouseId:"" ,
         toWarehouseId: "",
         quantity: "",
-        unitPrice: "",
-        referenceNo: "",
+        unitPrice: "0",
+        referenceNo: "0",
         note: "",
       };
     } else {
       return {
         itemId: selectedItem,
-        warehouseId: warehouseId,
+        warehouseId:"" ,
         quantity: "",
-        unitPrice: "",
-        referenceNo: "",
+        unitPrice: "0",
+        referenceNo: "0",
         note: "",
       };
     }
@@ -117,7 +117,7 @@ export default function StockInForm({ setShowForm, showTheForm, selectedItem }) 
           </div>
 
           {/* Unit Price */}
-          <div className="grid gap-2">
+          {/* <div className="grid gap-2">
             <Label htmlFor="unitPrice">Unit Price</Label>
             <Input
               id="unitPrice"
@@ -126,10 +126,10 @@ export default function StockInForm({ setShowForm, showTheForm, selectedItem }) 
               onChange={handleChange}
               required
             />
-          </div>
+          </div> */}
 
           {/* Reference Number */}
-          <div className="grid gap-2">
+          {/* <div className="grid gap-2">
             <Label htmlFor="referenceNo">Reference Number</Label>
             <Input
               id="referenceNo"
@@ -138,9 +138,30 @@ export default function StockInForm({ setShowForm, showTheForm, selectedItem }) 
               onChange={handleChange}
               required
             />
-          </div>
+          </div> */}
 
           {/* Conditional warehouse fields */}
+          {showTheForm === "transfer" ? (
+            <>
+              <div className="grid gap-2">
+                <Label htmlFor="toWarehouseId">Transfer from</Label>
+                <select
+                  id="fromWarehouseId"
+                  className="border p-2 rounded"
+                  value={formData.fromWarehouseId}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="">Select source branch...</option>
+                  { warehouseHaveThisItem.map((wh) => (
+                      <option key={wh.warehouseId} value={wh.warehouseId}>
+                        {wh.warehouseName}
+                      </option>
+                    ))}
+                </select>
+              </div>
+            </>
+          ) : null}
           {showTheForm === "transfer" ? (
             <>
               <div className="grid gap-2">
@@ -153,9 +174,7 @@ export default function StockInForm({ setShowForm, showTheForm, selectedItem }) 
                   required
                 >
                   <option value="">Select destination branch...</option>
-                  { warehouses
-                    .filter((wh) => wh.id !== warehouseId)
-                    .map((wh) => (
+                  { warehouses.map((wh) => (
                       <option key={wh.id} value={wh.id}>
                         {wh.name}
                       </option>
@@ -164,6 +183,7 @@ export default function StockInForm({ setShowForm, showTheForm, selectedItem }) 
               </div>
             </>
           ) : null}
+  
 
           {/* Note */}
           <div className="grid gap-2">

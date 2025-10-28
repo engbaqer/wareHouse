@@ -7,7 +7,7 @@ import {
   IconNotification,
   IconUserCircle,
 } from "@tabler/icons-react"
-
+import { useGlobalState } from "../hooks/globalHook";
 import {
   Avatar,
   AvatarFallback,
@@ -28,13 +28,12 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
-import { useState } from "react"
 
 export function NavUser({
   user
 }) {
   const { isMobile } = useSidebar()
-const [userName , setUsername] = useState(localStorage.getItem("userName") || "");
+  const { userName } = useGlobalState();
   return (
     <SidebarMenu>
       <SidebarMenuItem>

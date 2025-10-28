@@ -1,23 +1,24 @@
-"use client"; // if using app/ router
-
-import { createContext, useContext, useState } from "react";
+"use client";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const GlobalStateContext = createContext();
 
 export function GlobalStateProvider({ children }) {
-   
-    
-   const [activeItem, setActiveItem] = useState(null);
-    
+  const [activeItem, setActiveItem] = useState(null);
+  const [userName, setUserName] = useState(null);
 
-    return (
-        <GlobalStateContext.Provider value={{ activeItem, setActiveItem }}>
-            {children}
-        </GlobalStateContext.Provider>
-    );
+  useEffect(() => {
+    const storedName = localStorage.getItem("userName");
+    if (storedName) setUserName(storedName);
+  }, []);
+
+  return (
+    <GlobalStateContext.Provider value={{ activeItem, setActiveItem, userName }}>
+      {children}
+    </GlobalStateContext.Provider>
+  );
 }
 
-// Custom hook to access state
 export function useGlobalState() {
-    return useContext(GlobalStateContext);
+  return useContext(GlobalStateContext);
 }

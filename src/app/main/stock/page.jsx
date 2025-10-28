@@ -13,7 +13,7 @@ export default function Items() {
   const [showItemInfo, setShowItemInfo] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [showTheForm, setShowTheForm] = useState("");
-
+  const [warehouseHaveThisItem, setWarehouseHaveThisItem] = useState([]);
   // 🔹 Pagination states
   const [page, setPage] = useState(1);
   const [pageSize] = useState(20);
@@ -135,6 +135,7 @@ export default function Items() {
             showItemInfo={showItemInfo}
             selectedItem={selectedItem}
             setShowTheForm={setShowTheForm}
+            setWarehouseHaveThisItem={setWarehouseHaveThisItem}
             className="relative bg-white rounded-xl shadow-xl p-6"
           />
         </div>
@@ -146,6 +147,7 @@ export default function Items() {
             setShowForm={setShowTheForm}
             showTheForm={showTheForm}
             selectedItem={selectedItem}
+            warehouseHaveThisItem={warehouseHaveThisItem}
             className="relative bg-white rounded-xl shadow-xl p-6"
           />
         </div>

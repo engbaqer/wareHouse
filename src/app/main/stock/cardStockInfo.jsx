@@ -12,11 +12,11 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { apiRequest } from "@/lib/request"; // adjust path if needed
+import { set } from "zod";
 
-export default function SectionCards({ setShowItemInfo, setSelectedItem, showItemInfo, selectedItem , setShowTheForm }) {
+export default function SectionCards({ setShowItemInfo, setSelectedItem, showItemInfo, selectedItem , setShowTheForm , setWarehouseHaveThisItem }) {
   const [item, setItem] = useState(null);
-console.log("im hear", selectedItem)
-console.log("im hear", showItemInfo)
+
 //   Fetch the item when component loads
   useEffect(() => {
     const fetchItem = async () => {
@@ -27,6 +27,7 @@ console.log("im hear", showItemInfo)
           token,
         });
         setItem(data);
+        setWarehouseHaveThisItem(data.warehouses || []);
       } catch (err) {
         console.error("Failed to fetch item:", err);
       }
