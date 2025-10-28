@@ -90,6 +90,7 @@ console.log("warehouses that have this item" , warehouseHaveThisItem)
       alert(`Stock ${showTheForm} saved successfully!`);
       setFormData(getInitialForm());
       if (typeof setShowForm === "function") setShowForm("");
+      window.location.reload();// Refresh to show updated stock
     } catch (error) {
       console.error(`❌ Error saving stock ${showTheForm}:`, error);
       alert(`Failed to save stock ${showTheForm}`);

@@ -68,6 +68,7 @@ export default function CardDemo({ setAddItem, setSelectedItem, addItem, selecte
       alert("Item saved successfully!");
       setSelectedItem(null); // reset selected after saving
       setAddItem(false);
+      window.location.reload();// Refresh to show updated list
     } catch (error) {
       console.error("❌ Error saving item:", error);
       alert("Failed to save item");
