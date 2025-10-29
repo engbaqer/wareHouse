@@ -6,14 +6,15 @@ import { Button } from "@/components/ui/button";
 import { apiRequest } from "@/lib/request";
 import { useState, useEffect } from "react";
 import StockInForm from "./stokInForm";
-
+import { useGlobalState } from "@/hooks/globalHook";
 export default function Items() {
+  const { reRequest , setReRequest } = useGlobalState();
   const [query, setQuery] = useState("");
   const [items, setItems] = useState([]);
   const [showItemInfo, setShowItemInfo] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [showTheForm, setShowTheForm] = useState("");
-  const [warehouseHaveThisItem, setWarehouseHaveThisItem] = useState([]);
+  const [warehouseHaveThisItem, setWarehouseHaveThisItem  ] = useState([]);
   // 🔹 Pagination states
   const [page, setPage] = useState(1);
   const [pageSize] = useState(20);
@@ -51,7 +52,8 @@ export default function Items() {
   // 🔹 Fetch when component mounts or page changes
   useEffect(() => {
     getItems(query, page);
-  }, [page , query]);
+    setReRequest("");
+  }, [page , query , reRequest]);
 
   const handleSearch = (e) => {
     e.preventDefault();

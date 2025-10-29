@@ -6,6 +6,7 @@ const GlobalStateContext = createContext();
 export function GlobalStateProvider({ children }) {
   const [activeItem, setActiveItem] = useState(null);
   const [userName, setUserName] = useState(null);
+  const [reRequest, setReRequest] = useState("");
 
   useEffect(() => {
     const storedName = localStorage.getItem("userName");
@@ -13,7 +14,7 @@ export function GlobalStateProvider({ children }) {
   }, []);
 
   return (
-    <GlobalStateContext.Provider value={{ activeItem, setActiveItem, userName }}>
+    <GlobalStateContext.Provider value={{ activeItem, setActiveItem, userName , reRequest, setReRequest }}>
       {children}
     </GlobalStateContext.Provider>
   );

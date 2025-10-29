@@ -12,7 +12,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { apiRequest } from "@/lib/request"; // your helper
-
+import { useGlobalState } from "@/hooks/globalHook";
+import { set } from "zod";
 export default function CardDemo({ setAddItem, setSelectedItem, addItem, selectedItem ,tempOfData , setTempOfData }) {
   const [formData, setFormData] = useState({
     name: "",
@@ -20,6 +21,8 @@ export default function CardDemo({ setAddItem, setSelectedItem, addItem, selecte
     color: "",
     unitPrice: "",
   });
+ ///  
+  const {  setReRequest } = useGlobalState();
 
   // ✅ Sync formData with selectedItem
   useEffect(() => {
@@ -68,7 +71,7 @@ export default function CardDemo({ setAddItem, setSelectedItem, addItem, selecte
       alert("Item saved successfully!");
       setSelectedItem(null); // reset selected after saving
       setAddItem(false);
-      window.location.reload();// Refresh to show updated list
+     setReRequest("addItem"); // trigger re-fetch
     } catch (error) {
       console.error("❌ Error saving item:", error);
       alert("Failed to save item");

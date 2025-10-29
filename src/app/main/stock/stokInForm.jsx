@@ -12,10 +12,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { apiRequest } from "@/lib/request";
 
+import { useGlobalState } from "@/hooks/globalHook";
 export default function StockInForm({ setShowForm, showTheForm, selectedItem  , warehouseHaveThisItem }) {
   const [warehouses, setWarehouses] = useState([]);
   const warehousesId = localStorage.getItem("warehouseId");
-console.log("warehouses that have this item" , warehouseHaveThisItem)
+  const { setReRequest } = useGlobalState();
   // Initialize form based on the mode
   const getInitialForm = () => {
     if (showTheForm === "transfer") {
@@ -90,7 +91,7 @@ console.log("warehouses that have this item" , warehouseHaveThisItem)
       alert(`Stock ${showTheForm} saved successfully!`);
       setFormData(getInitialForm());
       if (typeof setShowForm === "function") setShowForm("");
-      window.location.reload();// Refresh to show updated stock
+      setReRequest("stock"); // trigger re-fetch
     } catch (error) {
       console.error(`❌ Error saving stock ${showTheForm}:`, error);
       alert(`Failed to save stock ${showTheForm}`);

@@ -6,8 +6,10 @@ import { Button } from "@/components/ui/button";
 import { apiRequest } from "@/lib/request";
 import { useState, useEffect } from "react";
 import AddItem from "./addItem";
-
+import { useGlobalState } from "@/hooks/globalHook";
+import { set } from "zod";
 export default function Items() {
+  const { reRequest , setReRequest } = useGlobalState();
   const [query, setQuery] = useState("");
   const [items, setItems] = useState([]);
   const [showItemInfo, setShowItemInfo] = useState(false);
@@ -51,8 +53,9 @@ export default function Items() {
 
   // Fetch items when page or query changes
   useEffect(() => {
-    getItems(query, page);
-  }, [page , query]);
+    getItems(query, page );
+    setReRequest("");
+  }, [page , query , reRequest]);
 
   const handleSearch = (e) => {
     e.preventDefault();
