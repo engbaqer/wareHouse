@@ -92,7 +92,9 @@ export default function SectionCards({
           <CardDescription>
             Price: {item.details?.unitPrice}
           </CardDescription>
-
+     <CardDescription>
+            Dgree: {item.details?.degree}
+          </CardDescription>
           <Button
             variant=""
             className="w-60 cursor-pointer"

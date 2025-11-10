@@ -66,15 +66,18 @@ export default function StockInForm({ setShowForm, showTheForm, selectedItem  , 
   }, []);
 
   // Handle input changes
-  const handleChange = (e) => {
-    const { id, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [id]: ["quantity", "unitPrice", "itemId", "warehouseId", "fromWarehouseId", "toWarehouseId"].includes(id)
-        ? Number(value)
-        : value,
-    }));
-  };
+const handleChange = (e) => {
+  const { id, value } = e.target;
+  setFormData((prev) => ({
+    ...prev,
+    [id]: ["quantity", "unitPrice", "itemId", "warehouseId", "fromWarehouseId", "toWarehouseId"].includes(id)
+      ? Number(value)
+      : value,
+  }));
+
+ 
+  
+};
 
   // Submit handler
   const handleSubmit = async (e) => {
@@ -203,6 +206,29 @@ export default function StockInForm({ setShowForm, showTheForm, selectedItem  , 
               onChange={handleChange}
             />
           </div>
+                    {/* Warehouse selection for Stock In/Out */}
+          {(showTheForm === "in" || showTheForm === "out") && (
+            <div className="grid gap-2">
+              <Label htmlFor="warehouseId">
+                {showTheForm === "in" ? "Stock In To Warehouse" : "Stock Out From Warehouse"}
+              </Label>
+              <select
+                id="warehouseId"
+                className="border p-2 rounded"
+                value={formData.warehouseId}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select warehouse...</option>
+                {warehouses.map((wh) => (
+                  <option key={wh.id} value={wh.id}>
+                    {wh.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+
 
           {/* Buttons */}
           <CardFooter className="flex-col gap-2 px-0">
