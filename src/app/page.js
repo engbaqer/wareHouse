@@ -1,10 +1,16 @@
-
+"use client"
+import Image from "next/image";
+import { useEffect } from "react";  
 
 import LogInComponent from "../app/(blank-layout)/login/page";
 
 export default function Home() {
  
 
+ // This will clear ALL localStorage items as soon as the site loads
+useEffect(() => {
+  localStorage.clear();
+}, []);
 
   return (
     <>
